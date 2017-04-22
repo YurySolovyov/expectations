@@ -1,0 +1,41 @@
+class Expect {
+  private static var messages = [];
+
+  private static func assert(argument, description, predicate) {
+    var assertion = [
+      'result': predicate(),
+      'message': "Expect " + argument.String() + " to be " + description
+    ];
+    messages.push(assertion);
+  }
+
+  private static func printMessage(assertion) {
+    var message = assertion['message'];
+    System.put(message);
+  }
+
+  private static func printResult(assertion) {
+    var result = assertion['result'];
+    if (result) {
+      System.print(' ... Pass');
+    } else {
+      System.print(' ... Fail');
+    }
+  }
+
+  static func pass() {
+    var passed = true;
+    for (var assertion in messages) {
+      Expect.printMessage(assertion);
+      Expect.printResult(assertion);
+      passed = passed && assertion['result'] == true;
+    }
+    return passed;
+  }
+
+  static func toBeTrue(argument) {
+    Expect.assert(argument, 'true', func() {
+      return argument == true;
+    });
+  }
+}

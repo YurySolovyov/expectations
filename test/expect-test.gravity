@@ -1,0 +1,16 @@
+#include "./src/expect.gravity"
+
+#unittest {
+  name: "Expect test";
+  error: NONE;
+  result: true;
+};
+
+func main() {
+  Expect.toBeTrue(true);
+  Expect.toBeTrue(true);
+  Expect.toBeTrue(false);
+  Expect.toBeTrue(true);
+
+  return Expect.pass();
+}
